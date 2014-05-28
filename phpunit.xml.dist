@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phpunit colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         syntaxCheck="true"
+         stopOnError="false"
+         stopOnFailure="false"
+         strict="true"
+         verbose="true">
+
+    <php>
+        <ini name="date.timezone" value="Europe/Madrid" />
+    </php>
+
+    <testsuites>
+        <testsuite name="Gilded Rose Unit Tests">
+            <directory>./src</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
