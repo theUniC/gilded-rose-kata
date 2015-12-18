@@ -102,15 +102,11 @@ class Program
 
                     if ($item->name == "Backstage passes to a TAFKAL80ETC concert") {
                         if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_2) {
-                            if ($item->quality < self::MAX_QUALITY) {
-                                $this->increaseItemQualityBy(1, $item);
-                            }
+                            $this->increaseItemQualityBy(1, $item);
                         }
 
                         if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_3) {
-                            if ($item->quality < self::MAX_QUALITY) {
-                                $this->increaseItemQualityBy(1, $item);
-                            }
+                            $this->increaseItemQualityBy(1, $item);
                         }
                     }
                 }
@@ -128,9 +124,7 @@ class Program
                         $this->decreaseItemQualityBy($item->quality, $item);
                     }
                 } else {
-                    if ($item->quality < self::MAX_QUALITY) {
-                        $this->increaseItemQualityBy(1, $item);
-                    }
+                    $this->increaseItemQualityBy(1, $item);
                 }
             }
         }
@@ -138,7 +132,9 @@ class Program
 
     private function increaseItemQualityBy($num, Item $item)
     {
-        $item->quality += $num;
+        if ($item->quality < self::MAX_QUALITY) {
+            $item->quality += $num;
+        }
     }
 
     private function decreaseItemQualityBy($num, Item $item)
