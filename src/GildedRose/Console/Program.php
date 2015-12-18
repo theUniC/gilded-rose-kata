@@ -122,11 +122,10 @@ class Program
                 if ($item->name != "Aged Brie") {
                     if ($item->name != "Backstage passes to a TAFKAL80ETC concert") {
                         $decreaseBy = 1;
-                        $this->decreaseItemQualityBy($decreaseBy, $item);
                     } else {
                         $decreaseBy = $item->quality;
-                        $this->decreaseItemQualityBy($decreaseBy, $item);
                     }
+                    $this->decreaseItemQualityBy($decreaseBy, $item);
                 } else {
                     $this->increaseItemQualityBy(1, $item);
                 }
