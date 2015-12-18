@@ -97,7 +97,8 @@ class Program
             if ($this->items[$i]->name != "Aged Brie" && $this->items[$i]->name != "Backstage passes to a TAFKAL80ETC concert") {
                 if ($this->items[$i]->quality > self::LOWEST_QUALITY) {
                     if ($this->items[$i]->name != "Sulfuras, Hand of Ragnaros") {
-                        $this->items[$i]->quality = $this->items[$i]->quality + (-1);
+                        $num = -1;
+                        $this->items[$i]->quality = $this->items[$i]->quality + $num;
                     }
                 }
             } else {
@@ -107,13 +108,15 @@ class Program
                     if ($this->items[$i]->name == "Backstage passes to a TAFKAL80ETC concert") {
                         if ($this->items[$i]->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_2) {
                             if ($this->items[$i]->quality < self::MAX_QUALITY) {
-                                $this->items[$i]->quality = $this->items[$i]->quality + 1;
+                                $num = 1;
+                                $this->items[$i]->quality = $this->items[$i]->quality + $num;
                             }
                         }
 
                         if ($this->items[$i]->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_3) {
                             if ($this->items[$i]->quality < self::MAX_QUALITY) {
-                                $this->items[$i]->quality = $this->items[$i]->quality + 1;
+                                $num = 1;
+                                $this->items[$i]->quality = $this->items[$i]->quality + $num;
                             }
                         }
                     }
@@ -129,15 +132,18 @@ class Program
                     if ($this->items[$i]->name != "Backstage passes to a TAFKAL80ETC concert") {
                         if ($this->items[$i]->quality > self::LOWEST_QUALITY) {
                             if ($this->items[$i]->name != "Sulfuras, Hand of Ragnaros") {
-                                $this->items[$i]->quality = $this->items[$i]->quality + (-1);
+                                $num = -1;
+                                $this->items[$i]->quality = $this->items[$i]->quality + $num;
                             }
                         }
                     } else {
-                        $this->items[$i]->quality = $this->items[$i]->quality + (-$this->items[$i]->quality);
+                        $num = -$this->items[$i]->quality;
+                        $this->items[$i]->quality = $this->items[$i]->quality + ($num);
                     }
                 } else {
                     if ($this->items[$i]->quality < self::MAX_QUALITY) {
-                        $this->items[$i]->quality = $this->items[$i]->quality + 1;
+                        $num = 1;
+                        $this->items[$i]->quality = $this->items[$i]->quality + $num;
                     }
                 }
             }
