@@ -103,11 +103,7 @@ class Program
                     $this->increaseItemQualityBy(1, $item);
 
                     if ($item->name == "Backstage passes to a TAFKAL80ETC concert") {
-                        if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_2) {
-                            $this->increaseItemQualityBy(1, $item);
-                        }
-
-                        if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_3) {
+                        if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_2 || $item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_3) {
                             $this->increaseItemQualityBy(1, $item);
                         }
                     }
@@ -124,7 +120,7 @@ class Program
                     if ($item->name != "Backstage passes to a TAFKAL80ETC concert") {
                         $decreaseBy = 1;
                     }
-                    
+
                     $this->decreaseItemQualityBy($decreaseBy, $item);
                 } else {
                     $this->increaseItemQualityBy(1, $item);
