@@ -99,13 +99,18 @@ class Program
             if ($item->name != "Aged Brie" && $item->name != "Backstage passes to a TAFKAL80ETC concert") {
                 $this->decreaseItemQualityBy(1, $item);
             } else {
-                if ($item->quality < self::MAX_QUALITY) {
-                    $this->increaseItemQualityBy(1, $item);
+                $this->increaseItemQualityBy(1, $item);
 
-                    if ($item->name == "Backstage passes to a TAFKAL80ETC concert") {
-                        if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_2 || $item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_3) {
-                            $this->increaseItemQualityBy(1, $item);
-                        }
+                if ($item->name == "Backstage passes to a TAFKAL80ETC concert") {
+                    $num = 0;
+                    if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_2) {
+                        $num += 1;
+                        $this->increaseItemQualityBy($num, $item);
+                    }
+
+                    if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_3) {
+                        $num += 1;
+                        $this->increaseItemQualityBy($num - 1, $item);
                     }
                 }
             }
