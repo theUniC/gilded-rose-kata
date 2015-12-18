@@ -49,17 +49,21 @@ class Program
 {
     private $items = array();
 
+    const MAX_QUALITY = 50;
+
+    const LOWEST_QUALITY = 0;
+
     public static function main()
     {
         echo 'OMGHAI!' . PHP_EOL;
 
         $app = new Program([
             new Item(['name' => '+5 Dexterity Vest', 'sellIn' => 10, 'quality' => 20]),
-            new Item(['name' => 'Aged Brie', "sellIn" => 2, 'quality' => 0]),
-            new Item(['name' => 'Aged Brie', "sellIn" => -1, 'quality' => 0]),
+            new Item(['name' => 'Aged Brie', "sellIn" => 2, 'quality' => self::LOWEST_QUALITY]),
+            new Item(['name' => 'Aged Brie', "sellIn" => -1, 'quality' => self::LOWEST_QUALITY]),
             new Item(['name' => 'Elixir of the Mongoose', 'sellIn' => 5, 'quality' => 7]),
             new Item(['name' => 'Elixir of the Mongoose', 'sellIn' => -1, 'quality' => 7]),
-            new Item(['name' => 'Sulfuras, Hand of Ragnaros', 'sellIn' => 0, 'quality' => 80]),
+            new Item(['name' => 'Sulfuras, Hand of Ragnaros', 'sellIn' => self::LOWEST_QUALITY, 'quality' => 80]),
             new Item(['name' => 'Sulfuras, Hand of Ragnaros', 'sellIn' => -1, 'quality' => 80]),
             new Item(['name' => 'Backstage passes to a TAFKAL80ETC concert', 'sellIn' => 15, 'quality' => 20]),
             new Item(['name' => 'Backstage passes to a TAFKAL80ETC concert', 'sellIn' => 10, 'quality' => 49]),
@@ -87,24 +91,24 @@ class Program
     {
         for ($i = 0; $i < count($this->items); $i++) {
             if ($this->items[$i]->name != "Aged Brie" && $this->items[$i]->name != "Backstage passes to a TAFKAL80ETC concert") {
-                if ($this->items[$i]->quality > 0) {
+                if ($this->items[$i]->quality > self::LOWEST_QUALITY) {
                     if ($this->items[$i]->name != "Sulfuras, Hand of Ragnaros") {
                         $this->items[$i]->quality = $this->items[$i]->quality - 1;
                     }
                 }
             } else {
-                if ($this->items[$i]->quality < 50) {
+                if ($this->items[$i]->quality < self::MAX_QUALITY) {
                     $this->items[$i]->quality = $this->items[$i]->quality + 1;
 
                     if ($this->items[$i]->name == "Backstage passes to a TAFKAL80ETC concert") {
                         if ($this->items[$i]->sellIn < 11) {
-                            if ($this->items[$i]->quality < 50) {
+                            if ($this->items[$i]->quality < self::MAX_QUALITY) {
                                 $this->items[$i]->quality = $this->items[$i]->quality + 1;
                             }
                         }
 
                         if ($this->items[$i]->sellIn < 6) {
-                            if ($this->items[$i]->quality < 50) {
+                            if ($this->items[$i]->quality < self::MAX_QUALITY) {
                                 $this->items[$i]->quality = $this->items[$i]->quality + 1;
                             }
                         }
@@ -116,10 +120,10 @@ class Program
                 $this->items[$i]->sellIn = $this->items[$i]->sellIn - 1;
             }
 
-            if ($this->items[$i]->sellIn < 0) {
+            if ($this->items[$i]->sellIn < self::LOWEST_QUALITY) {
                 if ($this->items[$i]->name != "Aged Brie") {
                     if ($this->items[$i]->name != "Backstage passes to a TAFKAL80ETC concert") {
-                        if ($this->items[$i]->quality > 0) {
+                        if ($this->items[$i]->quality > self::LOWEST_QUALITY) {
                             if ($this->items[$i]->name != "Sulfuras, Hand of Ragnaros") {
                                 $this->items[$i]->quality = $this->items[$i]->quality - 1;
                             }
@@ -128,7 +132,7 @@ class Program
                         $this->items[$i]->quality = $this->items[$i]->quality - $this->items[$i]->quality;
                     }
                 } else {
-                    if ($this->items[$i]->quality < 50) {
+                    if ($this->items[$i]->quality < self::MAX_QUALITY) {
                         $this->items[$i]->quality = $this->items[$i]->quality + 1;
                     }
                 }
