@@ -93,52 +93,43 @@ class Program
 
     public function UpdateQuality()
     {
-        for ($i = 0; $i < count($this->items); $i++) {
-            $item = $this->items[$i];
-            if ($item->name != "Aged Brie" && $this->items[$i]->name != "Backstage passes to a TAFKAL80ETC concert") {
-                if ($this->items[$i]->quality > self::LOWEST_QUALITY) {
-                    if ($this->items[$i]->name != "Sulfuras, Hand of Ragnaros") {
-                        $this->decreaseItemQualityBy(1, $this->items[$i]);
-                    }
-                }
+        foreach ($this->items as $item) {
+            if ($item->name != "Aged Brie" && $item->name != "Backstage passes to a TAFKAL80ETC concert") {
+                $this->decreaseItemQualityBy(1, $item);
             } else {
-                if ($this->items[$i]->quality < self::MAX_QUALITY) {
-                    $this->increaseItemQualityBy(1, $this->items[$i]);
+                if ($item->quality < self::MAX_QUALITY) {
+                    $this->increaseItemQualityBy(1, $item);
 
-                    if ($this->items[$i]->name == "Backstage passes to a TAFKAL80ETC concert") {
-                        if ($this->items[$i]->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_2) {
-                            if ($this->items[$i]->quality < self::MAX_QUALITY) {
-                                $this->increaseItemQualityBy(1, $this->items[$i]);
+                    if ($item->name == "Backstage passes to a TAFKAL80ETC concert") {
+                        if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_2) {
+                            if ($item->quality < self::MAX_QUALITY) {
+                                $this->increaseItemQualityBy(1, $item);
                             }
                         }
 
-                        if ($this->items[$i]->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_3) {
-                            if ($this->items[$i]->quality < self::MAX_QUALITY) {
-                                $this->increaseItemQualityBy(1, $this->items[$i]);
+                        if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_3) {
+                            if ($item->quality < self::MAX_QUALITY) {
+                                $this->increaseItemQualityBy(1, $item);
                             }
                         }
                     }
                 }
             }
 
-            if ($this->items[$i]->name != "Sulfuras, Hand of Ragnaros") {
-                $this->items[$i]->sellIn = $this->items[$i]->sellIn - 1;
+            if ($item->name != "Sulfuras, Hand of Ragnaros") {
+                $item->sellIn = $item->sellIn - 1;
             }
 
-            if ($this->items[$i]->sellIn < 0) {
-                if ($this->items[$i]->name != "Aged Brie") {
-                    if ($this->items[$i]->name != "Backstage passes to a TAFKAL80ETC concert") {
-                        if ($this->items[$i]->quality > self::LOWEST_QUALITY) {
-                            if ($this->items[$i]->name != "Sulfuras, Hand of Ragnaros") {
-                                $this->decreaseItemQualityBy(1, $this->items[$i]);
-                            }
-                        }
+            if ($item->sellIn < 0) {
+                if ($item->name != "Aged Brie") {
+                    if ($item->name != "Backstage passes to a TAFKAL80ETC concert") {
+                        $this->decreaseItemQualityBy(1, $item);
                     } else {
-                        $this->increaseItemQualityBy(-$this->items[$i]->quality, $this->items[$i]);
+                        $this->increaseItemQualityBy(-$item->quality, $item);
                     }
                 } else {
-                    if ($this->items[$i]->quality < self::MAX_QUALITY) {
-                        $this->increaseItemQualityBy(1, $this->items[$i]);
+                    if ($item->quality < self::MAX_QUALITY) {
+                        $this->increaseItemQualityBy(1, $item);
                     }
                 }
             }
@@ -152,6 +143,10 @@ class Program
 
     private function decreaseItemQualityBy($num, Item $item)
     {
-        $this->increaseItemQualityBy(($num * (-1)), $item);
+        if ($item->quality > self::LOWEST_QUALITY) {
+            if ($item->name != "Sulfuras, Hand of Ragnaros") {
+                $this->increaseItemQualityBy(($num * (-1)), $item);
+            }
+        }
     }
 }
