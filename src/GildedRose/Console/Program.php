@@ -94,7 +94,8 @@ class Program
     public function UpdateQuality()
     {
         for ($i = 0; $i < count($this->items); $i++) {
-            if ($this->items[$i]->name != "Aged Brie" && $this->items[$i]->name != "Backstage passes to a TAFKAL80ETC concert") {
+            $item = $this->items[$i];
+            if ($item->name != "Aged Brie" && $this->items[$i]->name != "Backstage passes to a TAFKAL80ETC concert") {
                 if ($this->items[$i]->quality > self::LOWEST_QUALITY) {
                     if ($this->items[$i]->name != "Sulfuras, Hand of Ragnaros") {
                         $this->decreaseItemQualityBy(1, $this->items[$i]);
