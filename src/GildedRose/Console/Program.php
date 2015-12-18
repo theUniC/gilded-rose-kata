@@ -63,7 +63,7 @@ class Program
                 'sellIn'    => 15,
                 'quality'   => 20
             ]),
-            new Item(array('name' => 'Conjured Mana Cake','sellIn' => 3,'quality' => 6)),
+            new Item(['name' => 'Conjured Mana Cake','sellIn' => 3,'quality' => 6]),
         ]);
 
         $app->UpdateQuality();

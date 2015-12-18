@@ -15,7 +15,13 @@
 
     <testsuites>
         <testsuite name="Gilded Rose Unit Tests">
-            <directory>./src</directory>
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory suffix="php">src/</directory>
+        </whitelist>
+    </filter>
 </phpunit>
