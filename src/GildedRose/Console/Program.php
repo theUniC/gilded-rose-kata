@@ -125,7 +125,7 @@ class Program
                     if ($item->name != "Backstage passes to a TAFKAL80ETC concert") {
                         $this->decreaseItemQualityBy(1, $item);
                     } else {
-                        $this->increaseItemQualityBy(-$item->quality, $item);
+                        $this->decreaseItemQualityBy($item->quality, $item);
                     }
                 } else {
                     if ($item->quality < self::MAX_QUALITY) {
