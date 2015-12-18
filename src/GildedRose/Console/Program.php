@@ -53,6 +53,10 @@ class Program
 
     const LOWEST_QUALITY = 0;
 
+    const DAYS_TO_INCREASE_QUALITY_BY_2 = 11;
+
+    const DAYS_TO_INCREASE_QUALITY_BY_3 = 6;
+
     public static function main()
     {
         echo 'OMGHAI!' . PHP_EOL;
@@ -101,13 +105,13 @@ class Program
                     $this->items[$i]->quality = $this->items[$i]->quality + 1;
 
                     if ($this->items[$i]->name == "Backstage passes to a TAFKAL80ETC concert") {
-                        if ($this->items[$i]->sellIn < 11) {
+                        if ($this->items[$i]->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_2) {
                             if ($this->items[$i]->quality < self::MAX_QUALITY) {
                                 $this->items[$i]->quality = $this->items[$i]->quality + 1;
                             }
                         }
 
-                        if ($this->items[$i]->sellIn < 6) {
+                        if ($this->items[$i]->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_3) {
                             if ($this->items[$i]->quality < self::MAX_QUALITY) {
                                 $this->items[$i]->quality = $this->items[$i]->quality + 1;
                             }
@@ -120,7 +124,7 @@ class Program
                 $this->items[$i]->sellIn = $this->items[$i]->sellIn - 1;
             }
 
-            if ($this->items[$i]->sellIn < self::LOWEST_QUALITY) {
+            if ($this->items[$i]->sellIn < 0) {
                 if ($this->items[$i]->name != "Aged Brie") {
                     if ($this->items[$i]->name != "Backstage passes to a TAFKAL80ETC concert") {
                         if ($this->items[$i]->quality > self::LOWEST_QUALITY) {
