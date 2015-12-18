@@ -97,7 +97,7 @@ class Program
             if ($this->items[$i]->name != "Aged Brie" && $this->items[$i]->name != "Backstage passes to a TAFKAL80ETC concert") {
                 if ($this->items[$i]->quality > self::LOWEST_QUALITY) {
                     if ($this->items[$i]->name != "Sulfuras, Hand of Ragnaros") {
-                        $this->increaseItemQualityBy(-1, $this->items[$i]);
+                        $this->decreaseItemQualityBy(1, $this->items[$i]);
                     }
                 }
             } else {
@@ -129,7 +129,7 @@ class Program
                     if ($this->items[$i]->name != "Backstage passes to a TAFKAL80ETC concert") {
                         if ($this->items[$i]->quality > self::LOWEST_QUALITY) {
                             if ($this->items[$i]->name != "Sulfuras, Hand of Ragnaros") {
-                                $this->increaseItemQualityBy(-1, $this->items[$i]);
+                                $this->decreaseItemQualityBy(1, $this->items[$i]);
                             }
                         }
                     } else {
@@ -147,5 +147,10 @@ class Program
     private function increaseItemQualityBy($num, Item $item)
     {
         $item->quality += $num;
+    }
+
+    private function decreaseItemQualityBy($num, Item $item)
+    {
+        $this->increaseItemQualityBy(($num * (-1)), $item);
     }
 }
