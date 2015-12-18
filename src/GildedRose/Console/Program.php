@@ -59,24 +59,30 @@ class Program
 
     const DAYS_TO_SOLD_OUT = 0;
 
+    const AGED_BRIE = "Aged Brie";
+
+    const BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
+
+    const SULFURAS = "Sulfuras, Hand of Ragnaros";
+
     public static function main()
     {
         echo 'OMGHAI!' . PHP_EOL;
 
         $app = new Program([
             new Item(['name' => '+5 Dexterity Vest', 'sellIn' => 10, 'quality' => 20]),
-            new Item(['name' => 'Aged Brie', "sellIn" => 2, 'quality' => self::LOWEST_QUALITY]),
-            new Item(['name' => 'Aged Brie', "sellIn" => -1, 'quality' => self::LOWEST_QUALITY]),
+            new Item(['name' => self::AGED_BRIE, "sellIn" => 2, 'quality' => self::LOWEST_QUALITY]),
+            new Item(['name' => self::AGED_BRIE, "sellIn" => -1, 'quality' => self::LOWEST_QUALITY]),
             new Item(['name' => 'Elixir of the Mongoose', 'sellIn' => 5, 'quality' => 7]),
             new Item(['name' => 'Elixir of the Mongoose', 'sellIn' => -1, 'quality' => 7]),
-            new Item(['name' => 'Sulfuras, Hand of Ragnaros', 'sellIn' => self::LOWEST_QUALITY, 'quality' => 80]),
-            new Item(['name' => 'Sulfuras, Hand of Ragnaros', 'sellIn' => -1, 'quality' => 80]),
-            new Item(['name' => 'Backstage passes to a TAFKAL80ETC concert', 'sellIn' => 15, 'quality' => 20]),
-            new Item(['name' => 'Backstage passes to a TAFKAL80ETC concert', 'sellIn' => 10, 'quality' => 49]),
-            new Item(['name' => 'Backstage passes to a TAFKAL80ETC concert', 'sellIn' => 5, 'quality' => 49]),
-            new Item(['name' => 'Backstage passes to a TAFKAL80ETC concert', 'sellIn' => 5, 'quality' => 48]),
-            new Item(['name' => 'Backstage passes to a TAFKAL80ETC concert', 'sellIn' => 5, 'quality' => 10]),
-            new Item(['name' => 'Backstage passes to a TAFKAL80ETC concert', 'sellIn' => -1, 'quality' => 10]),
+            new Item(['name' => self::SULFURAS, 'sellIn' => self::LOWEST_QUALITY, 'quality' => 80]),
+            new Item(['name' => self::SULFURAS, 'sellIn' => -1, 'quality' => 80]),
+            new Item(['name' => self::BACKSTAGE_PASSES, 'sellIn' => 15, 'quality' => 20]),
+            new Item(['name' => self::BACKSTAGE_PASSES, 'sellIn' => 10, 'quality' => 49]),
+            new Item(['name' => self::BACKSTAGE_PASSES, 'sellIn' => 5, 'quality' => 49]),
+            new Item(['name' => self::BACKSTAGE_PASSES, 'sellIn' => 5, 'quality' => 48]),
+            new Item(['name' => self::BACKSTAGE_PASSES, 'sellIn' => 5, 'quality' => 10]),
+            new Item(['name' => self::BACKSTAGE_PASSES, 'sellIn' => -1, 'quality' => 10]),
             new Item(['name' => 'Conjured Mana Cake','sellIn' => 3,'quality' => 6]),
         ]);
 
@@ -96,33 +102,30 @@ class Program
     public function UpdateQuality()
     {
         foreach ($this->items as $item) {
-            if ($item->name != "Aged Brie" && $item->name != "Backstage passes to a TAFKAL80ETC concert") {
+            if ($item->name != self::AGED_BRIE && $item->name != self::BACKSTAGE_PASSES) {
                 $this->decreaseItemQualityBy(1, $item);
             } else {
                 $this->increaseItemQualityBy(1, $item);
 
-                if ($item->name == "Backstage passes to a TAFKAL80ETC concert") {
-                    $num = 0;
+                if ($item->name == self::BACKSTAGE_PASSES) {
                     if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_2) {
-                        $num += 1;
-                        $this->increaseItemQualityBy($num, $item);
+                        $this->increaseItemQualityBy(1, $item);
                     }
 
                     if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_3) {
-                        $num += 1;
-                        $this->increaseItemQualityBy($num - 1, $item);
+                        $this->increaseItemQualityBy(1, $item);
                     }
                 }
             }
 
-            if ($item->name != "Sulfuras, Hand of Ragnaros") {
+            if ($item->name != self::SULFURAS) {
                 $item->sellIn = $item->sellIn - 1;
             }
 
             if ($item->sellIn < self::DAYS_TO_SOLD_OUT) {
-                if ($item->name != "Aged Brie") {
+                if ($item->name != self::AGED_BRIE) {
                     $decreaseBy = $item->quality;
-                    if ($item->name != "Backstage passes to a TAFKAL80ETC concert") {
+                    if ($item->name != self::BACKSTAGE_PASSES) {
                         $decreaseBy = 1;
                     }
 
@@ -144,7 +147,7 @@ class Program
     private function decreaseItemQualityBy($num, Item $item)
     {
         if ($item->quality > self::LOWEST_QUALITY) {
-            if ($item->name != "Sulfuras, Hand of Ragnaros") {
+            if ($item->name != self::SULFURAS) {
                 $this->increaseItemQualityBy(($num * (-1)), $item);
             }
         }
