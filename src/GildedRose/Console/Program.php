@@ -51,11 +51,13 @@ class Program
 
     const MAX_QUALITY = 50;
 
-    const LOWEST_QUALITY = 0;
+    const LOWEST_QUALITY = self::DAYS_TO_SOLD_OUT;
 
     const DAYS_TO_INCREASE_QUALITY_BY_2 = 11;
 
     const DAYS_TO_INCREASE_QUALITY_BY_3 = 6;
+
+    const DAYS_TO_SOLD_OUT = 0;
 
     public static function main()
     {
@@ -116,12 +118,14 @@ class Program
                 $item->sellIn = $item->sellIn - 1;
             }
 
-            if ($item->sellIn < 0) {
+            if ($item->sellIn < self::DAYS_TO_SOLD_OUT) {
                 if ($item->name != "Aged Brie") {
                     if ($item->name != "Backstage passes to a TAFKAL80ETC concert") {
-                        $this->decreaseItemQualityBy(1, $item);
+                        $decreaseBy = 1;
+                        $this->decreaseItemQualityBy($decreaseBy, $item);
                     } else {
-                        $this->decreaseItemQualityBy($item->quality, $item);
+                        $decreaseBy = $item->quality;
+                        $this->decreaseItemQualityBy($decreaseBy, $item);
                     }
                 } else {
                     $this->increaseItemQualityBy(1, $item);
