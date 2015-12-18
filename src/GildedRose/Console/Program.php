@@ -120,11 +120,11 @@ class Program
 
             if ($item->sellIn < self::DAYS_TO_SOLD_OUT) {
                 if ($item->name != "Aged Brie") {
+                    $decreaseBy = $item->quality;
                     if ($item->name != "Backstage passes to a TAFKAL80ETC concert") {
                         $decreaseBy = 1;
-                    } else {
-                        $decreaseBy = $item->quality;
                     }
+                    
                     $this->decreaseItemQualityBy($decreaseBy, $item);
                 } else {
                     $this->increaseItemQualityBy(1, $item);
