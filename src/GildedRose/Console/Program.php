@@ -5,6 +5,7 @@ use GildedRose\Console\QualityControl\AgedBrieQualityControl;
 use GildedRose\Console\QualityControl\BackstagePassesQualityControl;
 use GildedRose\Console\QualityControl\DefaultQualityControl;
 use GildedRose\Console\QualityControl\QualityControl;
+use GildedRose\Console\QualityControl\QualityControlFactory;
 
 /**
  * Hi and welcome to team Gilded Rose.
@@ -108,16 +109,7 @@ class Program
 
     private function qualityControlFor($item)
     {
-        $qualityControl = new DefaultQualityControl();
-
-        if (self::AGED_BRIE === $item->name) {
-            $qualityControl = new AgedBrieQualityControl();
-        }
-
-        if (self::BACKSTAGE_PASSES === $item->name) {
-            $qualityControl = new BackstagePassesQualityControl();
-        }
-
+        $qualityControl = (new QualityControlFactory())->qualityControlFor($item);
         $qualityControl->updateQuality($item);
     }
 }
