@@ -102,38 +102,7 @@ class Program
     public function UpdateQuality()
     {
         foreach ($this->items as $item) {
-            if (self::AGED_BRIE === $item->name) {
-                $this->increaseItemQualityBy(1, $item);
-
-                if ($this->soldOut($item)) {
-                    $this->increaseItemQualityBy(1, $item);
-                }
-            }
-
-            if (self::BACKSTAGE_PASSES === $item->name) {
-                $this->increaseItemQualityBy(1, $item);
-
-                if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_2) {
-                    $this->increaseItemQualityBy(1, $item);
-                }
-
-                if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_3) {
-                    $this->increaseItemQualityBy(1, $item);
-                }
-
-                if ($this->soldOut($item)) {
-                    $this->decreaseItemQualityBy($item->quality, $item);
-                }
-            }
-
-            if (self::AGED_BRIE !== $item->name && self::BACKSTAGE_PASSES !== $item->name) {
-                $this->decreaseItemQualityBy(1, $item);
-
-                if ($this->soldOut($item)) {
-                    $this->decreaseItemQualityBy(1, $item);
-                }
-            }
-
+            $this->qualityControlFor($item);
             $this->updateSellIn($item);
         }
     }
@@ -164,5 +133,55 @@ class Program
     private function soldOut($item)
     {
         return $item->sellIn < self::DAYS_TO_SOLD_OUT;
+    }
+
+    private function qualityControlForAgedBrie($item)
+    {
+        $this->increaseItemQualityBy(1, $item);
+
+        if ($this->soldOut($item)) {
+            $this->increaseItemQualityBy(1, $item);
+        }
+    }
+
+    private function qualityControlForBackstagePasses($item)
+    {
+        $this->increaseItemQualityBy(1, $item);
+
+        if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_2) {
+            $this->increaseItemQualityBy(1, $item);
+        }
+
+        if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_3) {
+            $this->increaseItemQualityBy(1, $item);
+        }
+
+        if ($this->soldOut($item)) {
+            $this->decreaseItemQualityBy($item->quality, $item);
+        }
+    }
+
+    private function qualityControlForDefaultItem($item)
+    {
+        $this->decreaseItemQualityBy(1, $item);
+
+        if ($this->soldOut($item)) {
+            $this->decreaseItemQualityBy(1, $item);
+        }
+    }
+
+    private function qualityControlFor($item)
+    {
+        if (self::AGED_BRIE === $item->name) {
+            $this->qualityControlForAgedBrie($item);
+        }
+
+        if (self::BACKSTAGE_PASSES === $item->name) {
+            $this->qualityControlForBackstagePasses($item);
+        }
+
+        if (self::AGED_BRIE !== $item->name && self::BACKSTAGE_PASSES !== $item->name) {
+            $this->qualityControlForDefaultItem($item);
+        }
     }
 }
