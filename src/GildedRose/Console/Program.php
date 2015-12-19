@@ -4,6 +4,7 @@ namespace GildedRose\Console;
 use GildedRose\Console\QualityControl\AgedBrieQualityControl;
 use GildedRose\Console\QualityControl\BackstagePassesQualityControl;
 use GildedRose\Console\QualityControl\DefaultQualityControl;
+use GildedRose\Console\QualityControl\QualityControl;
 
 /**
  * Hi and welcome to team Gilded Rose.
@@ -52,21 +53,9 @@ class Program
 {
     private $items = array();
 
-    const MAX_QUALITY = 50;
-
-    const LOWEST_QUALITY = 0;
-
-    const DAYS_TO_INCREASE_QUALITY_BY_2 = 11;
-
-    const DAYS_TO_INCREASE_QUALITY_BY_3 = 6;
-
-    const DAYS_TO_SOLD_OUT = 0;
-
     const AGED_BRIE = "Aged Brie";
 
     const BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
-
-    const SULFURAS = "Sulfuras, Hand of Ragnaros";
 
     public static function main()
     {
@@ -74,12 +63,12 @@ class Program
 
         $app = new Program([
             new Item(['name' => '+5 Dexterity Vest', 'sellIn' => 10, 'quality' => 20]),
-            new Item(['name' => self::AGED_BRIE, "sellIn" => 2, 'quality' => self::LOWEST_QUALITY]),
-            new Item(['name' => self::AGED_BRIE, "sellIn" => -1, 'quality' => self::LOWEST_QUALITY]),
+            new Item(['name' => self::AGED_BRIE, "sellIn" => 2, 'quality' => 0]),
+            new Item(['name' => self::AGED_BRIE, "sellIn" => -1, 'quality' => 0]),
             new Item(['name' => 'Elixir of the Mongoose', 'sellIn' => 5, 'quality' => 7]),
             new Item(['name' => 'Elixir of the Mongoose', 'sellIn' => -1, 'quality' => 7]),
-            new Item(['name' => self::SULFURAS, 'sellIn' => self::LOWEST_QUALITY, 'quality' => 80]),
-            new Item(['name' => self::SULFURAS, 'sellIn' => -1, 'quality' => 80]),
+            new Item(['name' => "Sulfuras, Hand of Ragnaros", 'sellIn' => 0, 'quality' => 80]),
+            new Item(['name' => "Sulfuras, Hand of Ragnaros", 'sellIn' => -1, 'quality' => 80]),
             new Item(['name' => self::BACKSTAGE_PASSES, 'sellIn' => 15, 'quality' => 20]),
             new Item(['name' => self::BACKSTAGE_PASSES, 'sellIn' => 10, 'quality' => 49]),
             new Item(['name' => self::BACKSTAGE_PASSES, 'sellIn' => 5, 'quality' => 49]),
@@ -110,32 +99,11 @@ class Program
         }
     }
 
-    private function increaseItemQualityBy($num, Item $item)
-    {
-        if ($item->quality < self::MAX_QUALITY) {
-            $item->quality += $num;
-        }
-    }
-
-    private function decreaseItemQualityBy($num, Item $item)
-    {
-        if ($item->quality > self::LOWEST_QUALITY) {
-            if ($item->name != self::SULFURAS) {
-                $this->increaseItemQualityBy(($num * (-1)), $item);
-            }
-        }
-    }
-
     private function updateSellIn(Item $item)
     {
-        if ($item->name != self::SULFURAS) {
+        if ($item->name != QualityControl::SULFURAS) {
             $item->sellIn = $item->sellIn - 1;
         }
-    }
-
-    private function soldOut($item)
-    {
-        return $item->sellIn < self::DAYS_TO_SOLD_OUT;
     }
 
     private function qualityControlForAgedBrie($item)
