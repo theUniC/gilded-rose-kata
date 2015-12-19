@@ -2,6 +2,7 @@
 
 namespace GildedRose\Console;
 use GildedRose\Console\QualityControl\AgedBrieQualityControl;
+use GildedRose\Console\QualityControl\BackstagePassesQualityControl;
 
 /**
  * Hi and welcome to team Gilded Rose.
@@ -144,19 +145,8 @@ class Program
 
     private function qualityControlForBackstagePasses($item)
     {
-        $this->increaseItemQualityBy(1, $item);
-
-        if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_2) {
-            $this->increaseItemQualityBy(1, $item);
-        }
-
-        if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_3) {
-            $this->increaseItemQualityBy(1, $item);
-        }
-
-        if ($this->soldOut($item)) {
-            $this->decreaseItemQualityBy($item->quality, $item);
-        }
+        $qualityControl = new BackstagePassesQualityControl();
+        $qualityControl->updateQuality($item);
     }
 
     private function qualityControlForDefaultItem($item)
