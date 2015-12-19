@@ -112,7 +112,7 @@ class Program
 
             if (self::BACKSTAGE_PASSES === $item->name) {
                 $this->increaseItemQualityBy(1, $item);
-                
+
                 if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_2) {
                     $this->increaseItemQualityBy(1, $item);
                 }
@@ -124,12 +124,16 @@ class Program
 
             if (self::AGED_BRIE !== $item->name && self::BACKSTAGE_PASSES !== $item->name) {
                 $this->decreaseItemQualityBy(1, $item);
+
+                if ($item->sellIn < self::DAYS_TO_SOLD_OUT) {
+                    $this->decreaseItemQualityBy(1, $item);
+                }
             }
 
             if ($item->sellIn < self::DAYS_TO_SOLD_OUT) {
                 if (self::AGED_BRIE === $item->name) {
                 } else {
-                    $decreaseBy = 1;
+                    $decreaseBy = 0;
                     if (self::BACKSTAGE_PASSES === $item->name) {
                         $decreaseBy = $item->quality;
                     }
