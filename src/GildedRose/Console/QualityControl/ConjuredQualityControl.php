@@ -8,6 +8,6 @@ class ConjuredQualityControl extends QualityControl
 {
     public function updateQuality(Item $item)
     {
-        $item->quality -= 2;
+        $this->decreaseItemQualityBy(2, $item);
     }
 }
