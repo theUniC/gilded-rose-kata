@@ -118,10 +118,6 @@ class Program
                 }
             }
 
-            if ($item->name != self::SULFURAS) {
-                $item->sellIn = $item->sellIn - 1;
-            }
-
             if ($item->sellIn < self::DAYS_TO_SOLD_OUT) {
                 if ($item->name != self::AGED_BRIE) {
                     $decreaseBy = $item->quality;
@@ -134,6 +130,8 @@ class Program
                     $this->increaseItemQualityBy(1, $item);
                 }
             }
+
+            $this->updateSellIn($item);
         }
     }
 
@@ -150,6 +148,13 @@ class Program
             if ($item->name != self::SULFURAS) {
                 $this->increaseItemQualityBy(($num * (-1)), $item);
             }
+        }
+    }
+
+    private function updateSellIn(Item $item)
+    {
+        if ($item->name != self::SULFURAS) {
+            $item->sellIn = $item->sellIn - 1;
         }
     }
 }
