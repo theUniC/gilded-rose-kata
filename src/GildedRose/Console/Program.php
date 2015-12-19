@@ -102,7 +102,11 @@ class Program
     public function UpdateQuality()
     {
         foreach ($this->items as $item) {
-            if (self::AGED_BRIE === $item->name || self::BACKSTAGE_PASSES === $item->name) {
+            if (self::AGED_BRIE === $item->name) {
+                $this->increaseItemQualityBy(1, $item);
+            }
+
+            if (self::BACKSTAGE_PASSES === $item->name) {
                 $this->increaseItemQualityBy(1, $item);
 
                 if (self::BACKSTAGE_PASSES === $item->name) {
@@ -114,7 +118,9 @@ class Program
                         $this->increaseItemQualityBy(1, $item);
                     }
                 }
-            } else {
+            }
+
+            if (self::AGED_BRIE !== $item->name && self::BACKSTAGE_PASSES !== $item->name) {
                 $this->decreaseItemQualityBy(1, $item);
             }
 
