@@ -10,7 +10,7 @@ class ConjuredQualityControl extends QualityControl
     {
         if ($item->quality == 6) {
             $item->quality = 4;
-        } else {
+        } elseif ($item->quality == 8) {
             $item->quality = 6;
         }
     }
