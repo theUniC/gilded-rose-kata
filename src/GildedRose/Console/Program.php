@@ -104,6 +104,10 @@ class Program
         foreach ($this->items as $item) {
             if (self::AGED_BRIE === $item->name) {
                 $this->increaseItemQualityBy(1, $item);
+
+                if ($item->sellIn < self::DAYS_TO_SOLD_OUT) {
+                    $this->increaseItemQualityBy(1, $item);
+                }
             }
 
             if (self::BACKSTAGE_PASSES === $item->name) {
@@ -126,7 +130,6 @@ class Program
 
             if ($item->sellIn < self::DAYS_TO_SOLD_OUT) {
                 if (self::AGED_BRIE === $item->name) {
-                    $this->increaseItemQualityBy(1, $item);
                 } else {
                     $decreaseBy = 1;
                     if (self::BACKSTAGE_PASSES === $item->name) {
