@@ -112,15 +112,13 @@ class Program
 
             if (self::BACKSTAGE_PASSES === $item->name) {
                 $this->increaseItemQualityBy(1, $item);
+                
+                if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_2) {
+                    $this->increaseItemQualityBy(1, $item);
+                }
 
-                if (self::BACKSTAGE_PASSES === $item->name) {
-                    if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_2) {
-                        $this->increaseItemQualityBy(1, $item);
-                    }
-
-                    if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_3) {
-                        $this->increaseItemQualityBy(1, $item);
-                    }
+                if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_3) {
+                    $this->increaseItemQualityBy(1, $item);
                 }
             }
 
