@@ -51,7 +51,7 @@ class Program
 
     const MAX_QUALITY = 50;
 
-    const LOWEST_QUALITY = self::DAYS_TO_SOLD_OUT;
+    const LOWEST_QUALITY = 0;
 
     const DAYS_TO_INCREASE_QUALITY_BY_2 = 11;
 
@@ -102,12 +102,10 @@ class Program
     public function UpdateQuality()
     {
         foreach ($this->items as $item) {
-            if ($item->name != self::AGED_BRIE && $item->name != self::BACKSTAGE_PASSES) {
-                $this->decreaseItemQualityBy(1, $item);
-            } else {
+            if (self::AGED_BRIE === $item->name || self::BACKSTAGE_PASSES === $item->name) {
                 $this->increaseItemQualityBy(1, $item);
 
-                if ($item->name == self::BACKSTAGE_PASSES) {
+                if (self::BACKSTAGE_PASSES === $item->name) {
                     if ($item->sellIn < self::DAYS_TO_INCREASE_QUALITY_BY_2) {
                         $this->increaseItemQualityBy(1, $item);
                     }
@@ -116,18 +114,20 @@ class Program
                         $this->increaseItemQualityBy(1, $item);
                     }
                 }
+            } else {
+                $this->decreaseItemQualityBy(1, $item);
             }
 
             if ($item->sellIn < self::DAYS_TO_SOLD_OUT) {
-                if ($item->name != self::AGED_BRIE) {
-                    $decreaseBy = $item->quality;
-                    if ($item->name != self::BACKSTAGE_PASSES) {
-                        $decreaseBy = 1;
+                if (self::AGED_BRIE === $item->name) {
+                    $this->increaseItemQualityBy(1, $item);
+                } else {
+                    $decreaseBy = 1;
+                    if (self::BACKSTAGE_PASSES === $item->name) {
+                        $decreaseBy = $item->quality;
                     }
 
                     $this->decreaseItemQualityBy($decreaseBy, $item);
-                } else {
-                    $this->increaseItemQualityBy(1, $item);
                 }
             }
 
