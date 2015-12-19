@@ -32,4 +32,17 @@ class AgedBrieQualityControlTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(3, $agedBrie->quality);
     }
+
+    /** @test */
+    public function it_should_increase_in_quality_by_two_if_aged_brie_has_been_sold_out()
+    {
+        $agedBrie = new Item(['name' => 'Aged Brie', 'sellIn' => -1, 'quality' => 5]);
+
+        // 5
+        $this->qualityControl->updateQuality($agedBrie); // (1 + 1)
+        $this->qualityControl->updateQuality($agedBrie); // (1 + 1)
+        $this->qualityControl->updateQuality($agedBrie); // (1 + 1)
+
+        $this->assertEquals((5 + (1 + 1) + (1 + 1) + (1 + 1)), $agedBrie->quality);
+    }
 }
