@@ -105,7 +105,7 @@ class Program
             if (self::AGED_BRIE === $item->name) {
                 $this->increaseItemQualityBy(1, $item);
 
-                if ($item->sellIn < self::DAYS_TO_SOLD_OUT) {
+                if ($this->soldOut($item)) {
                     $this->increaseItemQualityBy(1, $item);
                 }
             }
@@ -121,7 +121,7 @@ class Program
                     $this->increaseItemQualityBy(1, $item);
                 }
 
-                if ($item->sellIn < self::DAYS_TO_SOLD_OUT) {
+                if ($this->soldOut($item)) {
                     $this->decreaseItemQualityBy($item->quality, $item);
                 }
             }
@@ -129,7 +129,7 @@ class Program
             if (self::AGED_BRIE !== $item->name && self::BACKSTAGE_PASSES !== $item->name) {
                 $this->decreaseItemQualityBy(1, $item);
 
-                if ($item->sellIn < self::DAYS_TO_SOLD_OUT) {
+                if ($this->soldOut($item)) {
                     $this->decreaseItemQualityBy(1, $item);
                 }
             }
@@ -159,5 +159,10 @@ class Program
         if ($item->name != self::SULFURAS) {
             $item->sellIn = $item->sellIn - 1;
         }
+    }
+
+    private function soldOut($item)
+    {
+        return $item->sellIn < self::DAYS_TO_SOLD_OUT;
     }
 }
