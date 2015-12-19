@@ -24,10 +24,13 @@ class ConjuredQualityControlTest extends PHPUnit_Framework_TestCase
     /** @test */
     public function it_should_degrage_in_quality_by_twice_compared_with_other_items()
     {
-        $conjured = new Item(['name' => 'Conjured Mana Cake','sellIn' => 3,'quality' => 6]);
+        $conjured1 = new Item(['name' => 'Conjured Mana Cake','sellIn' => 3,'quality' => 6]);
+        $conjured2 = new Item(['name' => 'Conjured Mana Cake','sellIn' => 3,'quality' => 8]);
 
-        $this->qualityControl->updateQuality($conjured);
+        $this->qualityControl->updateQuality($conjured1);
+        $this->qualityControl->updateQuality($conjured2);
 
-        $this->assertEquals(4, $conjured->quality);
+        $this->assertEquals(4, $conjured1->quality);
+        $this->assertEquals(6, $conjured2->quality);
     }
 }
