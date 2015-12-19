@@ -3,6 +3,7 @@
 namespace GildedRose\Console;
 use GildedRose\Console\QualityControl\AgedBrieQualityControl;
 use GildedRose\Console\QualityControl\BackstagePassesQualityControl;
+use GildedRose\Console\QualityControl\DefaultQualityControl;
 
 /**
  * Hi and welcome to team Gilded Rose.
@@ -151,11 +152,8 @@ class Program
 
     private function qualityControlForDefaultItem($item)
     {
-        $this->decreaseItemQualityBy(1, $item);
-
-        if ($this->soldOut($item)) {
-            $this->decreaseItemQualityBy(1, $item);
-        }
+        $qualityControl = new DefaultQualityControl();
+        $qualityControl->updateQuality($item);
     }
 
     private function qualityControlFor($item)
