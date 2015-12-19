@@ -106,36 +106,18 @@ class Program
         }
     }
 
-    private function qualityControlForAgedBrie($item)
-    {
-        $qualityControl = new AgedBrieQualityControl();
-        $qualityControl->updateQuality($item);
-    }
-
-    private function qualityControlForBackstagePasses($item)
-    {
-        $qualityControl = new BackstagePassesQualityControl();
-        $qualityControl->updateQuality($item);
-    }
-
-    private function qualityControlForDefaultItem($item)
-    {
-        $qualityControl = new DefaultQualityControl();
-        $qualityControl->updateQuality($item);
-    }
-
     private function qualityControlFor($item)
     {
+        $qualityControl = new DefaultQualityControl();
+
         if (self::AGED_BRIE === $item->name) {
-            $this->qualityControlForAgedBrie($item);
+            $qualityControl = new AgedBrieQualityControl();
         }
 
         if (self::BACKSTAGE_PASSES === $item->name) {
-            $this->qualityControlForBackstagePasses($item);
+            $qualityControl = new BackstagePassesQualityControl();
         }
 
-        if (self::AGED_BRIE !== $item->name && self::BACKSTAGE_PASSES !== $item->name) {
-            $this->qualityControlForDefaultItem($item);
-        }
+        $qualityControl->updateQuality($item);
     }
 }
