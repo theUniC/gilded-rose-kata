@@ -8,6 +8,7 @@ class QualityControlFactory
 {
     const AGED_BRIE         = "Aged Brie";
     const BACKSTAGE_PASSES  = "Backstage passes to a TAFKAL80ETC concert";
+    const CONJURED          = "Conjured Mana Cake";
 
     public function qualityControlFor(Item $item)
     {
@@ -17,6 +18,10 @@ class QualityControlFactory
 
         if ($this->is(self::BACKSTAGE_PASSES, $item)) {
             return new BackstagePassesQualityControl();
+        }
+
+        if ($this->is(self::CONJURED, $item)) {
+            return new ConjuredQualityControl();
         }
 
         return new DefaultQualityControl();
