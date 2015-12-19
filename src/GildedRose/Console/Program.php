@@ -1,6 +1,7 @@
 <?php
 
 namespace GildedRose\Console;
+use GildedRose\Console\QualityControl\AgedBrieQualityControl;
 
 /**
  * Hi and welcome to team Gilded Rose.
@@ -137,11 +138,8 @@ class Program
 
     private function qualityControlForAgedBrie($item)
     {
-        $this->increaseItemQualityBy(1, $item);
-
-        if ($this->soldOut($item)) {
-            $this->increaseItemQualityBy(1, $item);
-        }
+        $qualityControl = new AgedBrieQualityControl();
+        $qualityControl->updateQuality($item);
     }
 
     private function qualityControlForBackstagePasses($item)
