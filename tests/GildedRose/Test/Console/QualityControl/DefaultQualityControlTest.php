@@ -16,7 +16,7 @@ class DefaultQualityControlTest extends PHPUnit_Framework_TestCase
     /**
      * @before
      */
-    public function prepareAgedBrieQualityControl()
+    public function prepareDefaultQualityControl()
     {
         $this->qualityControl = new DefaultQualityControl();
     }

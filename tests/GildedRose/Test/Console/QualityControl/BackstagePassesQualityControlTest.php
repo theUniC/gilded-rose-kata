@@ -16,7 +16,7 @@ class BackstagePassesQualityControlTest extends PHPUnit_Framework_TestCase
     /**
      * @before
      */
-    public function prepareAgedBrieQualityControl()
+    public function prepareBackstagePassesQualityControl()
     {
         $this->qualityControl = new BackstagePassesQualityControl();
     }

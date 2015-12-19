@@ -13,7 +13,7 @@ abstract class QualityControl
     const DAYS_TO_INCREASE_QUALITY_BY_2 = 11;
     const DAYS_TO_INCREASE_QUALITY_BY_3 = 6;
 
-    const SULFURAS = "Sulfuras, Hand of Ragnaros";
+    const SULFURAS = 'Sulfuras, Hand of Ragnaros';
 
     protected function increaseItemQualityBy($num, Item $item)
     {
