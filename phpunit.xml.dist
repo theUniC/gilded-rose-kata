@@ -1,27 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
-<phpunit colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         syntaxCheck="true"
-         stopOnError="false"
-         stopOnFailure="false"
-         strict="true"
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         executionOrder="random"
          verbose="true">
-
-    <php>
-        <ini name="date.timezone" value="Europe/Madrid" />
-    </php>
-
     <testsuites>
-        <testsuite name="Gilded Rose Unit Tests">
-            <directory>./tests</directory>
+        <testsuite name="default">
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
 
-    <filter>
-        <whitelist>
-            <directory suffix="php">src/</directory>
-        </whitelist>
-    </filter>
+    <coverage cacheDirectory=".phpunit.cache/code-coverage"
+              processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+    </coverage>
 </phpunit>
